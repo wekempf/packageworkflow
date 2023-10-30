@@ -45,12 +45,14 @@ task version {
 
 task build version, clean, {
     Write-Build White 'Building...'
+    Write-Build Cyan "branch: $(git rev-parse --abbrev-ref HEAD)"
     New-Item -Path $BuildDir -ItemType Directory -Force | Out-Null
     Set-Content -Path (Join-Path $BuildDir 'artifact.txt') -Value 'Hello, world!' -Force | Out-Null
 }
 
 task publish {
     Write-Build White 'Publishing...'
+    Write-Build Cyan "branch: $(git rev-parse --abbrev-ref HEAD)"
 }
 
 task . build

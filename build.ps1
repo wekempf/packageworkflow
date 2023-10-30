@@ -16,6 +16,8 @@ if ($MyInvocation.ScriptName -notlike '*Invoke-Build.ps1') {
     return
 }
 
+$script:BuildDir = Join-Path $PSScriptRoot '.build'
+
 Set-BuildHeader {
     param($Path)
     Write-Build Green ('=' * 79)
@@ -43,8 +45,8 @@ task version {
 
 task build version, clean, {
     Write-Build White 'Building...'
-    mkdir '.build' -Force | Out-Null
-    Set-Content -Path (Join-Path '.build' 'artifact.txt') -Value 'Hello, world!' -Force | Out-Null
+    New-Item -Path $BuildDir -ItemType Directory -Force | Out-Null
+    Set-Content -Path (Join-Path $BuildDir 'artifact.txt') -Value 'Hello, world!' -Force | Out-Null
 }
 
 task publish {

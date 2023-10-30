@@ -1,4 +1,5 @@
 name: example-command
+run-name: ${{ github.actor }} issued /example command 🚀
 on:
   repository_dispatch:
     types: [example-command]

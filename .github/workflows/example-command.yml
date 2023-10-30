@@ -6,6 +6,8 @@ jobs:
   example:
     runs-on: ubuntu-latest
     steps:
+      - run: echo "example-command handler"
+
       - name: Add reaction
         uses: peter-evans/create-or-update-comment@v2
         with:

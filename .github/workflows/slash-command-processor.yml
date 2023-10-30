@@ -6,6 +6,8 @@ jobs:
   slashCommandDispatch:
     runs-on: ubuntu-latest
     steps:
+      - run: echo 'Dispatching slash command'
+
       - name: Slash Command Dispatch
         uses: peter-evans/slash-command-dispatch@v3
         with:

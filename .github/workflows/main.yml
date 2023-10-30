@@ -23,15 +23,18 @@ jobs:
     name: Run build.ps1 build
     runs-on: ubuntu-latest
     steps:
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v7
+
       - uses: actions/checkout@v4
-        with:
-            fetch-depth: 0
 
       # Run the build script to create the versioned script file
       - name: Build
+        env:
+          GIT_BRANCH: ${{ steps.branch-name.outputs.current_branch }}
         run: |
           ./build.ps1
-        shell: pwsh
 
       # Publish the script as an artifact, so it can be used in other jobs
       - uses: actions/upload-artifact@v3

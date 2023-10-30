@@ -17,6 +17,7 @@ if ($MyInvocation.ScriptName -notlike '*Invoke-Build.ps1') {
 }
 
 $script:BuildDir = Join-Path $PSScriptRoot '.build'
+$script:GitBranch = ([Environment]::GetEnvironmentVariable('GIT_BRANCH') ?? (git rev-parse --abbrev-ref HEAD))
 
 Set-BuildHeader {
     param($Path)
@@ -45,14 +46,14 @@ task version {
 
 task build version, clean, {
     Write-Build White 'Building...'
-    Write-Build Cyan "branch: $(git rev-parse --abbrev-ref HEAD)"
+    Write-Build Cyan "branch: $GitBranch"
     New-Item -Path $BuildDir -ItemType Directory -Force | Out-Null
     Set-Content -Path (Join-Path $BuildDir 'artifact.txt') -Value 'Hello, world!' -Force | Out-Null
 }
 
 task publish {
     Write-Build White 'Publishing...'
-    Write-Build Cyan "branch: $(git rev-parse --abbrev-ref HEAD)"
+    Write-Build Cyan "branch: $GitBranch"
 }
 
 task . build
